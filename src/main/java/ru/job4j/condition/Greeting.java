@@ -8,5 +8,9 @@ public class Greeting {
         int year = 2022;
         idea += year;
         System.out.println(idea);
+        short s = 1500;
+        char c = (char) s;
+        double d = c;
+        System.out.println(d);
     }
 }
