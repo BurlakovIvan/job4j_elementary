@@ -33,11 +33,36 @@ public class MaxTest {
     }
 
     @Test
-    public void whenMax5To5Then5() {
-        int left = 5;
-        int right = 5;
-        int result = Max.max(left, right);
+    public void whenMaxOf584Then8() {
+        int first = 5;
+        int second = 8;
+        int third = 4;
+        int result = Max.max(first, second, third);
+        int expected = 8;
+        Assert.assertEquals(result, expected);
+    }
+
+    @Test
+    public void whenMax6394Then9() {
+        int first = 6;
+        int second = 3;
+        int third = 9;
+        int fourth = 4;
+        int result = Max.max(first, second, third, fourth);
+        int expected = 9;
+        Assert.assertEquals(result, expected);
+    }
+
+    @Test
+    public void whenMax55321Then5() {
+        int first = 5;
+        int second = 5;
+        int third = 3;
+        int fourth = 2;
+        int fifth = 1;
+        int result = Max.max(first, second, third, fourth, fifth);
         int expected = 5;
         Assert.assertEquals(result, expected);
     }
+
 }

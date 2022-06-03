@@ -13,6 +13,10 @@ public class Max {
         return max(first, max(second, third, fourth));
     }
 
+    public static int max(int first, int second, int third, int fourth, int fifth) {
+        return max(first, max(second, third, fourth, fifth));
+    }
+
     public static void main(String[] args) {
         System.out.println(Max.max(10, 20));
         System.out.println(Max.max(5, 1));
