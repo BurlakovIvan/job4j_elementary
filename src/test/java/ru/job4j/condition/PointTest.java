@@ -20,7 +20,7 @@ public class PointTest {
         Point pointFirst = new Point(0, 0);
         Point pointSecond = new Point(15, 8);
         double out = pointFirst.distance(pointSecond);
-        Assert.assertEquals(expected, out, 0.01);
+        Assert.assertEquals(expected, out, 0.1);
     }
 
     @Test
@@ -39,5 +39,14 @@ public class PointTest {
         Point pointSecond = new Point(200, 45);
         double out = pointFirst.distance(pointSecond);
         Assert.assertEquals(expected, out, 0.01);
+    }
+
+    @Test
+    public void when123toMinus7Minus24then9() {
+        double expected = 9.0;
+        Point pointFirst = new Point(1, 2, 3);
+        Point pointSecond = new Point(-7, -2, 4);
+        double out = pointFirst.distance(pointSecond);
+        Assert.assertEquals(expected, out, 0.1);
     }
 }
