@@ -32,9 +32,5 @@ public class Point {
         pointSecond = new Point(200, 45);
         result = pointFirst.distance(pointSecond);
         System.out.println("result (10, 80) to (200, 45) " + result);
-        pointFirst = new Point(1, 2);
-        pointSecond = new Point(1, 3);
-        result = pointFirst.distance(pointSecond);
-        System.out.println("result (1, 2) to (1, 3) " + result);
     }
 }
