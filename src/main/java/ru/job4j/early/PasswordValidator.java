@@ -10,18 +10,16 @@ public class PasswordValidator {
         if (password == null) {
             throw new IllegalArgumentException("Не задан пароль");
         }
+        String rsl;
         if (password.length() < 8 || password.length() > 32) {
-            return "Длина пароля должна находится в диапазоне от 8 до 32, включая";
+            rsl = "Длина пароля должна находится в диапазоне от 8 до 32, включая";
+        } else {
+            rsl = validSymbolsPasswords(password);
+            if (rsl == null) {
+                rsl = stringContainsInvalidSubstring(password);
+            }
         }
-        String invalidPassword = validSymbolsPasswords(password);
-        if (invalidPassword != null) {
-            return invalidPassword;
-        }
-        invalidPassword = stringContainsInvalidSubstring(password);
-        if (invalidPassword != null) {
-            return invalidPassword;
-        }
-        return "Пароль корректен";
+        return rsl == null ? "Пароль корректен" : rsl;
     }
 
     private static String validSymbolsPasswords(String password) {
@@ -32,42 +30,39 @@ public class PasswordValidator {
         for (char ch : password.toCharArray()) {
             if (Character.isDigit(ch)) {
                 isDigit = true;
-                continue;
-            }
-            if (!Character.isLetterOrDigit(ch)) {
+            } else if (!Character.isLetterOrDigit(ch)) {
                 isSpecialSymbol = true;
-                continue;
-            }
-            if (Character.isUpperCase(ch)) {
+            } else if (Character.isUpperCase(ch)) {
                 isUpperCase = true;
-                continue;
-            }
-            if (Character.isLowerCase(ch)) {
+            } else if (Character.isLowerCase(ch)) {
                 isLowerCase = true;
             }
+            if (isDigit && isSpecialSymbol && isUpperCase && isLowerCase) {
+                break;
+            }
         }
+        String rsl = null;
         if (!isUpperCase) {
-            return "Пароль должен содержать хотя бы один символ в верхнем регистре";
+            rsl = "Пароль должен содержать хотя бы один символ в верхнем регистре";
+        } else if (!isLowerCase) {
+            rsl = "Пароль должен содержать хотя бы один символ в нижнем регистре";
+        } else if (!isDigit) {
+            rsl = "Пароль должен содержать хотя бы одну цифру";
+        } else if (!isSpecialSymbol) {
+            rsl = "Пароль должен содержать хотя бы один спец. символ  (не цифра и не буква)";
         }
-        if (!isLowerCase) {
-            return "Пароль должен содержать хотя бы один символ в нижнем регистре";
-        }
-        if (!isDigit) {
-            return "Пароль должен содержать хотя бы одну цифру";
-        }
-        if (!isSpecialSymbol) {
-            return "Пароль должен содержать хотя бы один спец. символ  (не цифра и не буква)";
-        }
-        return null;
+        return rsl;
     }
 
     private static String stringContainsInvalidSubstring(String password) {
+        String rsl = null;
         for (String substring : INVALID_SUBSTRING) {
             if (stringContainsSubstring(password, substring)) {
-                return "Пароль не должен содержать подстроку " + substring;
+                rsl = "Пароль не должен содержать подстроку " + substring;
+                break;
             }
         }
-        return null;
+        return rsl;
     }
 
     private static boolean stringContainsSubstring(String password, String substring) {
